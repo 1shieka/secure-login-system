@@ -83,7 +83,7 @@ public class LoginService {
             }
     
             // correct password → reset + update login time
-            userDAO.resetFailedAttempts(username);
+
             userDAO.updateLastLogin(username);
     
             // fetch fresh user

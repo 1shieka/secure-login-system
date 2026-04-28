@@ -107,11 +107,12 @@ public class DashboardUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 
         String[] infoLines = {
-            " Username   : " + user.getUsername(),
-            " Role       : " + user.getRole(),
-            " Failed Attempts: " + user.getFailedAttempts(),
+            " Student Username   : " + user.getUsername(),
+            " Your Role       : " + user.getRole(),
+            " Total Failed Attempts : " + user.getFailedAttempts(),
+        
             "",
-            "Your account is active.",
+            "Your current account is active.",
         };
 
         for (String line : infoLines) {
