@@ -58,9 +58,22 @@ public class LoginService {
                 return LoginResult.SUCCESS;
             }
     
-            // Step 2: check if already blocked
-            if (existing.getFailedAttempts() >= MAX_ATTEMPTS) {
-                return LoginResult.ACCOUNT_BLOCKED;
+    
+            // Step 2: temporary block logic 
+             if (existing.getFailedAttempts() >= MAX_ATTEMPTS) {
+
+             long now = System.currentTimeMillis();
+
+              long lastAttemptTime = (existing.getLastLogin() != null)
+              ? existing.getLastLogin().getTime()
+              : 0;
+
+              long diff = now - lastAttemptTime;
+
+              // 2 minutes = 120000 ms
+              if (diff < 120000) {
+              return LoginResult.ACCOUNT_BLOCKED;
+             }
             }
     
             // Step 3: check credentials
@@ -69,6 +82,7 @@ public class LoginService {
             if (user == null) {
                 // Step 1: increment
                 userDAO.incrementFailedAttempts(username);
+                
             
                 // Step 2: FORCE fresh read from DB
                 User updated = userDAO.findUserByUsername(username);
